@@ -1,5 +1,5 @@
-public class Creador {
-    public void crear(){
+public class Generador {
+    public void crear_archivo(){
         int n=4; double max=50,min=-100;
         if(max<min) return;
         while(n>0){
