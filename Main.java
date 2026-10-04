@@ -17,8 +17,10 @@ public class Main{
                     creador.registrar_aleatorios();
                     break;
                 case 2:
+                    creador.leerRegistros();
                     break;
                 case 3:
+                    creador.ordenaArchivo();
                     break;
                 case 4:
                     break;
