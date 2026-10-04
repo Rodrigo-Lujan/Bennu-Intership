@@ -4,16 +4,17 @@ public class Main{
     public static void main(String[] args){
         //Es un InputStream
         Scanner lector = new Scanner(System.in);
-        Generador generador = new Generador();
+        CrearArchivo creador = new CrearArchivo();
         mostrarMenu();
         while(true){
+            System.out.print("Seleccione una opción : ");
             int opcion = lector.nextInt();
             switch (opcion) {
                 case 0:
                     mostrarMenu();
                     break;
                 case 1:
-                    generador.crear_archivo();
+                    creador.registrar_aleatorios();
                     break;
                 case 2:
                     break;
@@ -25,10 +26,10 @@ public class Main{
                     break;
                 case 6:
                     System.out.println("Programa terminado");
+                    System.exit(0);
                     return;
                 default:
                     System.out.println("Digite una opcion válida");
-                    lector.close();
                     break;
             }
         }
@@ -45,6 +46,5 @@ public class Main{
         System.out.println("4 - Lee archivo ordenado");
         System.out.println("5 - Buscar numero en archivo");
         System.out.println("6 - Salir");
-        System.out.print("Seleccione una opción : ");
     }
 }
