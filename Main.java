@@ -23,8 +23,12 @@ public class Main{
                     creador.ordenaArchivo();
                     break;
                 case 4:
+                    creador.leerRegistros();
                     break;
                 case 5:
+                    System.out.print("¿Que numero desea buscar?: ");
+                    Double numero = lector.nextDouble();
+                    creador.buscarNumero(numero);
                     break;
                 case 6:
                     System.out.println("Programa terminado");

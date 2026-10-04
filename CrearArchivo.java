@@ -1,11 +1,12 @@
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.Scanner;
 
 public class CrearArchivo {
+
+    //Un booleano si se orden para que la busqueda sea binaria o secuencial
 
     //objeto que puede enviar datos a distintas ubicacione
     private Formatter salida;
@@ -85,6 +86,7 @@ public class CrearArchivo {
 
         cerrarArchivo();
 
+        //PONER EN numeros_ordenados.txt
         Collections.sort(lista);
 
         abrirArchivo();       // reabre "numeros.txt" con el Formatter (lo sobrescribe)
@@ -95,7 +97,24 @@ public class CrearArchivo {
         }
 
         cerrarArchivo();      
-        
+
+    }
+
+    public void buscarNumero(Double numero) 
+    {
+        leer_archivo(); int posicion = 1;
+
+        while(lectura.hasNext())
+        {
+            if(numero == lectura.nextDouble()){
+                System.out.println("Se encuentra en la posicion " + posicion);
+                break;
+            }
+            else
+            {
+                posicion++;
+            }
+        }   
     }
 }
 
