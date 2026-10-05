@@ -1,79 +1,98 @@
 package com.bennu;
 import java.util.Scanner;
 
+import com.bennu.metodos.ArraysSort;
+import com.bennu.metodos.QuickSort;
+
 public class Main{
+
+    private static Menu menu = new Menu();
+    private static Escritura escritor = new Escritura();
+    private static Lectura lector = new Lectura();
+    private static Generador generador = new Generador();
+    
     public static void main(String[] args){
-        //Es un InputStream
-        Scanner lector = new Scanner(System.in);
-        CrearArchivo creador = new CrearArchivo();
-        mostrarMenu();
-        while(true){
-            System.out.print("Seleccione una opción : ");
-            int opcion;
-            if (lector.hasNextInt()) {      
-                opcion = lector.nextInt();
-            } else {
-                System.out.println("Digite un número válido");
-                lector.next();                
-                continue; //Al inicio de while  y volver a preguntar                
-            }
+
+        menu.mostrar();
+        boolean salir = false;
+
+        while (!salir) {
+            int opcion = menu.pedirOpcion();
             switch (opcion) {
                 case 0:
-                    mostrarMenu();
+                    menu.mostrar();
                     break;
                 case 1:
-                    System.out.print("¿Cuantos numeros desea generar?: ");
-                    int cantidad = lector.nextInt();
-                    creador.registrar_aleatorios(cantidad);
+                    int cantidad = menu.pedirCantidad();
+                    escritor.escribir(generador.generar(cantidad));
                     break;
                 case 2:
-                    creador.leerRegistros();
+                case 4:
+                    imprimir(lector.leer());
                     break;
                 case 3:
-                    int n_metodo = mostrarMetodos(lector);
-                    creador.ordenaArchivo(n_metodo);
-                    break;
-                case 4:
-                    creador.leerRegistros();
+                    int metodo = menu.pedirMetodo();
+                    //preguntar por el metodo
+                    ordenarArchivo(metodo);
                     break;
                 case 5:
-                    System.out.print("¿Que numero desea buscar?: ");
-                    Double numero = lector.nextDouble();
-                    creador.buscarNumero(numero);
+                    buscar(menu.pedirNumeroBusqueda());
                     break;
                 case 6:
                     System.out.println("Programa terminado");
-                    //cerrar lector aca o ocmo manejar esto
-                    return;
+                    menu.cerrar();
+                    salir = true;
+                    break;
                 default:
                     System.out.println("Digite una opcion válida");
-                    break;
             }
         }
-
     }
 
-    public static void mostrarMenu(){
-        System.out.println("Opciones");
-        System.out.println("--------------------");
-        System.out.println("0 - Menu");
-        System.out.println("1 - Genera nuevo archivo");
-        System.out.println("2 - Lee archivo generado");
-        System.out.println("3 - Ordena archivo");
-        System.out.println("4 - Lee archivo ordenado");
-        System.out.println("5 - Buscar numero en archivo");
-        System.out.println("6 - Salir");
+    private static void imprimir(double[] numeros) 
+    {
+        for (double num : numeros) 
+            {
+            System.out.format("%.2f%n", num);
+        }
     }
 
-    public static int mostrarMetodos(Scanner lector){
-        System.out.println("");
-        System.out.println("¿Que método de ordenamiento quiere utilizar? :");
-        System.out.println("1 - Java Sort :");
-        System.out.println("2 - Java ParallelSort :");
-        System.out.println("3 - Java QuickSort :");
-        System.out.println("4 - Java HeapSort :");
-        System.out.println("5 - Java BubbleSort :");
-        System.out.print("Seleccione : ");
-        return lector.nextInt();
+    private static void ordenarArchivo(int metodo) 
+    {
+        double[] numeros = lector.leer();
+        IOrdenador estrategia; //Interfaz que implementa metodo ordenar()
+
+        switch (metodo) 
+        {
+            case 1: 
+                estrategia = new ArraysSort(); 
+                break;
+            case 2: 
+                estrategia = new QuickSort(); 
+                break;
+            default:
+                System.out.println("Método no válido");
+                return;
+        }
+
+        long inicio = System.currentTimeMillis();
+        
+        //pasarle los numeros en double[]
+        estrategia.ordenar(numeros);
+        
+        long fin = System.currentTimeMillis();
+        System.out.println("Tiempo de ejecución : " + (fin - inicio) + " ms");
+
+        escritor.escribir(numeros);
     }
+
+    private static void buscar(double numero) 
+    {
+        //Hacer busqueda binaria en archivo ordenado
+
+        //Hacer busqueda secuencial si no se ha ordenado
+        
+        System.out.println("No se encontró el número");
+    }
+
 }
