@@ -1,3 +1,4 @@
+package com.bennu;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,18 +27,15 @@ public class CrearArchivo {
         }        
     }
 
-    public void registrar_aleatorios()
+    public void registrar_aleatorios(int cantidad)
     {
         abrirArchivo();
-        
-        int n=4; double max=50,min=-100;   
-        if(max<min) return;
-        
-        while(n>0)
+                
+        while(cantidad>0)
         {
-            double num = Math.round(Math.random() * 100.0) / 100.0;
+            double num = Math.random() * 100.0;
             salida.format("%.2f%n", num);
-            n--;
+            cantidad--;
         }
 
         cerrarArchivo(); //del buffer al disco (numeros.txt)

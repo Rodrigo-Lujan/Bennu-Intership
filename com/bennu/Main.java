@@ -1,4 +1,4 @@
-import java.nio.file.Paths;
+package com.bennu;
 import java.util.Scanner;
 
 public class Main{
@@ -9,13 +9,22 @@ public class Main{
         mostrarMenu();
         while(true){
             System.out.print("Seleccione una opción : ");
-            int opcion = lector.nextInt();
+            int opcion;
+            if (lector.hasNextInt()) {      
+                opcion = lector.nextInt();
+            } else {
+                System.out.println("Digite un número válido");
+                lector.next();                
+                continue; //Al inicio de while  y volver a preguntar                
+            }
             switch (opcion) {
                 case 0:
                     mostrarMenu();
                     break;
                 case 1:
-                    creador.registrar_aleatorios();
+                    System.out.print("¿Cuantos numeros desea generar?: ");
+                    int cantidad = lector.nextInt();
+                    creador.registrar_aleatorios(cantidad);
                     break;
                 case 2:
                     creador.leerRegistros();
