@@ -36,9 +36,38 @@ public class Lectura {
 
     }
 
-    public int buscar(double pedirNumeroBusqueda) 
+    public int buscar(double numero) 
     {
-        return 0;
+        double[] lista = leer();
+        for(int i=0;i<lista.length;i++)
+        {
+            if(lista[i] == numero)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int busqueda_binaria(double numero)
+    {
+        double[] lista = leer();
+        int inicio = 0, fin= lista.length-1;
+        
+        while(inicio <= fin){
+            int pos_media = (inicio+fin)/2;
+            if(lista[pos_media] == numero){
+                return  pos_media;
+            }
+            else if(lista[pos_media] < numero){
+                inicio = pos_media+1;
+            }
+            else {
+                fin = pos_media -1;
+            }
+        }
+
+        return -1;
     }
 
 }

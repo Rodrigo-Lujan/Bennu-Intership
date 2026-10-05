@@ -50,7 +50,7 @@ public class Main{
                     imprimir(lectorOrdenado.leer());
                     break;
                 case 5:
-                    int posicion = lectorOrdenado.buscar(menu.pedirNumeroBusqueda());
+                    int posicion = lectorOrdenado.busqueda_binaria(menu.pedirNumeroBusqueda());
                     System.out.println("Ubicado en posicion: " + posicion);
                     break;
                 case 6:
