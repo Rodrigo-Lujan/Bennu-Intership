@@ -1,7 +1,9 @@
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Formatter;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class CrearArchivo {
@@ -74,30 +76,74 @@ public class CrearArchivo {
         cerrarArchivo();
     }
 
-    public void ordenaArchivo()
+    // convierte ArrayList<Double> a double[] 
+    private double[] toArray(ArrayList<Double> lista){
+        double[] arr = new double[lista.size()];
+        for(int i = 0; i < lista.size(); i++)
+            arr[i] = lista.get(i);
+        return arr;
+    }
+
+    // convierte double[] de vuelta a ArrayList<Double>
+    private ArrayList<Double> toList(double[] arr){
+        ArrayList<Double> lista = new ArrayList<>();
+        for(double d : arr)
+            lista.add(d);
+        return lista;
+    }
+
+    public void ordenaArchivo(int metodo)
     {
         leer_archivo();
         ArrayList<Double> lista = new ArrayList<>();
-
         while(lectura.hasNext())
         {
             lista.add(lectura.nextDouble());
         }
-
         cerrarArchivo();
 
-        //PONER EN numeros_ordenados.txt
-        Collections.sort(lista);
+        long inicio = System.currentTimeMillis();
+        String nombre = "";
 
-        abrirArchivo();       // reabre "numeros.txt" con el Formatter (lo sobrescribe)
-
-        for(Double num : lista)
+        switch(metodo)
         {
-            salida.format("%.2f%n", num);   // mismo formato que usas al registrar
+            case 1:
+                Collections.sort(lista);                 // TimSort
+                nombre = "Java Sort";
+                break;
+            case 2:
+                double[] arr2 = toArray(lista);
+                Arrays.parallelSort(arr2);               // paralelo
+                lista = toList(arr2);
+                nombre = "Parallel sort";
+                break;
+            case 3:
+                double[] arr3 = toArray(lista);
+                Arrays.sort(arr3);                        // dual-pivot quicksort
+                lista = toList(arr3);
+                nombre = "Quick sort";
+                break;
+            case 4:
+                //heapSort(lista);
+                nombre = "Heap sort";
+                break;
+            case 5:
+                //bubbleSort(lista);
+                nombre = "Bubble sort";
+                break;
+            default:
+                System.out.println("Método no válido");
+                return;
         }
 
-        cerrarArchivo();      
+        long fin = System.currentTimeMillis();
+        System.out.println(nombre + " execution time : " + (fin - inicio) + " ms");
 
+        // escribir el resultado ordenado
+        abrirArchivo();
+        for(Double num : lista)
+            salida.format("%.2f%n", num);
+        cerrarArchivo();
     }
 
     public void buscarNumero(Double numero) 
@@ -114,7 +160,10 @@ public class CrearArchivo {
             {
                 posicion++;
             }
-        }   
+        }
+        
+        cerrarArchivo();
     }
+
 }
 

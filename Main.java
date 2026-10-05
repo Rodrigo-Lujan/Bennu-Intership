@@ -1,3 +1,4 @@
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main{
@@ -20,7 +21,8 @@ public class Main{
                     creador.leerRegistros();
                     break;
                 case 3:
-                    creador.ordenaArchivo();
+                    int n_metodo = mostrarMetodos(lector);
+                    creador.ordenaArchivo(n_metodo);
                     break;
                 case 4:
                     creador.leerRegistros();
@@ -32,7 +34,7 @@ public class Main{
                     break;
                 case 6:
                     System.out.println("Programa terminado");
-                    System.exit(0);
+                    //cerrar lector aca o ocmo manejar esto
                     return;
                 default:
                     System.out.println("Digite una opcion válida");
@@ -52,5 +54,17 @@ public class Main{
         System.out.println("4 - Lee archivo ordenado");
         System.out.println("5 - Buscar numero en archivo");
         System.out.println("6 - Salir");
+    }
+
+    public static int mostrarMetodos(Scanner lector){
+        System.out.println("");
+        System.out.println("¿Que método de ordenamiento quiere utilizar? :");
+        System.out.println("1 - Java Sort :");
+        System.out.println("2 - Java ParallelSort :");
+        System.out.println("3 - Java QuickSort :");
+        System.out.println("4 - Java HeapSort :");
+        System.out.println("5 - Java BubbleSort :");
+        System.out.print("Seleccione : ");
+        return lector.nextInt();
     }
 }
