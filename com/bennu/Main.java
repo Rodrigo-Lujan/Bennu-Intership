@@ -1,17 +1,20 @@
 package com.bennu;
-import java.util.Scanner;
 
 import com.bennu.metodos.ArraysSort;
 import com.bennu.metodos.QuickSort;
 
 public class Main{
-
-    private static Menu menu = new Menu();
-    private static Escritura escritor = new Escritura();
-    private static Lectura lector = new Lectura();
-    private static Generador generador = new Generador();
     
+    private static final String ARCHIVO_NUMEROS = "numeros.txt";
+    private static final String ARCHIVO_ORDENADO = "ordenados.txt";
+
     public static void main(String[] args){
+        Menu menu = new Menu();
+        Escritura escritorNumeros  = new Escritura(ARCHIVO_NUMEROS);
+        Escritura escritorOrdenado = new Escritura(ARCHIVO_ORDENADO);
+        Lectura   lectorNumeros    = new Lectura(ARCHIVO_NUMEROS);
+        Lectura   lectorOrdenado   = new Lectura(ARCHIVO_ORDENADO);
+        Generador generador = new Generador();
 
         menu.mostrar();
         boolean salir = false;
@@ -24,19 +27,32 @@ public class Main{
                     break;
                 case 1:
                     int cantidad = menu.pedirCantidad();
-                    escritor.escribir(generador.generar(cantidad));
+                    //poner double[] en el archivo
+                    escritorNumeros.escribir(generador.generar(cantidad));
                     break;
                 case 2:
-                case 4:
-                    imprimir(lector.leer());
+                    imprimir(lectorNumeros.leer());
                     break;
                 case 3:
-                    int metodo = menu.pedirMetodo();
-                    //preguntar por el metodo
-                    ordenarArchivo(metodo);
+                    int metodoElegido = menu.pedirMetodo();
+                    IOrdenador estrategia = obtenerEstrategia(metodoElegido);
+                    if (estrategia == null) {
+                        System.out.println("Método no válido");
+                        break;
+                    }
+                    double[] numeros = lectorNumeros.leer();
+                    long inicio = System.currentTimeMillis();
+                    estrategia.ordenar(numeros);
+                    long fin = System.currentTimeMillis();
+                    System.out.println("Tiempo de ejecución : " + (fin - inicio) + " ms");
+                    escritorOrdenado.escribir(numeros);
+                    break;
+                case 4:
+                    imprimir(lectorOrdenado.leer());
                     break;
                 case 5:
-                    buscar(menu.pedirNumeroBusqueda());
+                    int posicion = lectorOrdenado.buscar(menu.pedirNumeroBusqueda());
+                    System.out.println("Ubicado en posicion: " + posicion);
                     break;
                 case 6:
                     System.out.println("Programa terminado");
@@ -57,42 +73,17 @@ public class Main{
         }
     }
 
-    private static void ordenarArchivo(int metodo) 
+    private static IOrdenador obtenerEstrategia(int metodo) 
     {
-        double[] numeros = lector.leer();
-        IOrdenador estrategia; //Interfaz que implementa metodo ordenar()
-
         switch (metodo) 
         {
             case 1: 
-                estrategia = new ArraysSort(); 
-                break;
+                return new ArraysSort();
             case 2: 
-                estrategia = new QuickSort(); 
-                break;
-            default:
-                System.out.println("Método no válido");
-                return;
+                return new QuickSort();
+            default: 
+                return null;
         }
-
-        long inicio = System.currentTimeMillis();
-        
-        //pasarle los numeros en double[]
-        estrategia.ordenar(numeros);
-        
-        long fin = System.currentTimeMillis();
-        System.out.println("Tiempo de ejecución : " + (fin - inicio) + " ms");
-
-        escritor.escribir(numeros);
-    }
-
-    private static void buscar(double numero) 
-    {
-        //Hacer busqueda binaria en archivo ordenado
-
-        //Hacer busqueda secuencial si no se ha ordenado
-        
-        System.out.println("No se encontró el número");
     }
 
 }

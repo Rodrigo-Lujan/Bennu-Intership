@@ -7,10 +7,17 @@ import java.util.Scanner;
 
 public class Lectura {
     
+    private final String archivo;
+
+    public Lectura(String archivo)
+    {
+        this.archivo = archivo;
+    }
+
     public double[] leer()
     {
         ArrayList<Double> lista = new ArrayList<>();
-        try (Scanner lectura = new Scanner(Paths.get("numeros.txt"))) 
+        try (Scanner lectura = new Scanner(Paths.get(archivo))) 
         {
             while(lectura.hasNextDouble())
             {
@@ -27,6 +34,11 @@ public class Lectura {
         for (int i = 0; i < lista.size(); i++) arreglo[i] = lista.get(i);
         return arreglo;
 
+    }
+
+    public int buscar(double pedirNumeroBusqueda) 
+    {
+        return 0;
     }
 
 }
