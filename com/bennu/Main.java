@@ -27,7 +27,6 @@ public class Main{
                     break;
                 case 1:
                     int cantidad = menu.pedirCantidad();
-                    //poner double[] en el archivo
                     escritorNumeros.escribir(generador.generar(cantidad));
                     break;
                 case 2:
