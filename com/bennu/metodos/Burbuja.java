@@ -4,6 +4,7 @@ import com.bennu.IOrdenador;
 
 public class Burbuja implements IOrdenador{
 
+    //Hasta no necesitar intercambios
     //Dejar mayor al final
     @Override
     public void ordenar(double[] lista) {
