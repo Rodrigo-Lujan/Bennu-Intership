@@ -8,7 +8,7 @@ public class Burbuja implements IOrdenador{
     //Dejar mayor al final
     @Override
     public void ordenar(double[] lista) {
-
+        boolean huboIntercambio = false;
         for(int i=lista.length-1;i>0;i--){
             for(int j=0;j<i;j++)
             {
@@ -17,7 +17,11 @@ public class Burbuja implements IOrdenador{
                     double temp = lista[j];
                     lista[j] = lista[j+1];
                     lista[j+1] = temp;
+                    huboIntercambio = true;
                 }
+            }
+            if (!huboIntercambio) {
+                break; // ya está ordenado
             }
         }
     }

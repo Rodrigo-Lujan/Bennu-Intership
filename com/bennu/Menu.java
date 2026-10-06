@@ -46,6 +46,10 @@ public class Menu {
         System.out.println("1 - Java Sort (Arrays.sort)");
         System.out.println("2 - QuickSort");
         System.out.println("3 - RadixSort");
+        System.out.println("4 - MergeSort");
+        System.out.println("5 - HeapSort");
+        System.out.println("6 - Burbuja");
+        System.out.println("7 - Selección");
         System.out.print("Seleccione : ");
         
         return lector.nextInt();

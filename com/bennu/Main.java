@@ -1,7 +1,11 @@
 package com.bennu;
 
 import com.bennu.metodos.ArraysSort;
-import com.bennu.metodos.CountingSort;
+import com.bennu.metodos.Burbuja;
+import com.bennu.metodos.HeapSort;
+import com.bennu.metodos.MergeSort;
+import com.bennu.metodos.RadixSort;
+import com.bennu.metodos.Seleccion;
 import com.bennu.metodos.QuickSort;
 
 public class Main{
@@ -82,7 +86,15 @@ public class Main{
             case 2: 
                 return new QuickSort();
             case 3:
-                return new CountingSort();
+                return new RadixSort();
+            case 4: 
+                return new MergeSort();
+            case 5: 
+                return new HeapSort();
+            case 6: 
+                return new Burbuja();
+            case 7: 
+                return new Seleccion();
             default: 
                 return null;
         }

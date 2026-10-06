@@ -22,6 +22,7 @@ public class MergeSort implements IOrdenador {
         ordenar(lista, medio + 1, fin);
 
         // Combinar
+        if (lista[medio] <= lista[medio + 1]) return; //No hace falta mezclar
         mezclar(lista, inicio, medio, fin);
     }
 
