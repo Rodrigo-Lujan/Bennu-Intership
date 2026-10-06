@@ -45,6 +45,7 @@ public class Menu {
         System.out.println("¿Que método de ordenamiento quiere utilizar? :");
         System.out.println("1 - Java Sort (Arrays.sort)");
         System.out.println("2 - QuickSort");
+        System.out.println("3 - RadixSort");
         System.out.print("Seleccione : ");
         
         return lector.nextInt();

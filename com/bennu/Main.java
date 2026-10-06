@@ -1,6 +1,7 @@
 package com.bennu;
 
 import com.bennu.metodos.ArraysSort;
+import com.bennu.metodos.CountingSort;
 import com.bennu.metodos.QuickSort;
 
 public class Main{
@@ -80,6 +81,8 @@ public class Main{
                 return new ArraysSort();
             case 2: 
                 return new QuickSort();
+            case 3:
+                return new CountingSort();
             default: 
                 return null;
         }
